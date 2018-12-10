@@ -57,12 +57,13 @@ namespace BleemSync.Utilities
         public static bool IsValidGamesDirectoryStructure(string[] structure)
         {
             var validDirectoryStructure = true;
+            var directories = new List<string>(structure).OrderBy(s => s.Length).ThenBy(s => s).ToList();
 
-            for (int i = 0; i < structure.Length; i++)
+            for (int i = 0; i < directories.Count; i++)
             {
-                if (Common.StringIsInt(structure[i]))
+                if (Common.StringIsInt(directories.ElementAt(i)))
                 {
-                    if (Convert.ToInt32(new DirectoryInfo(structure[i]).Name) != i + 1)
+                    if (Convert.ToInt32(new DirectoryInfo(directories.ElementAt(i)).Name) != i + 1)
                     {
                         validDirectoryStructure = false;
                     }
